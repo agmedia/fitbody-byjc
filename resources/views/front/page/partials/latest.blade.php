@@ -13,7 +13,7 @@
                     @if (isset($page->subcat))
                         <h4><a href="{{ route('page', ['cat' => $page->subcat->parent->slug, 'subcat' => $page->subcat->slug, 'page' => $page->slug]) }}">{{ $page->name }}</a></h4>
                     @else
-                        <h4><a href="{{ route('page', ['cat' => $page->subcat->slug, 'subcat' => $page->slug]) }}">{{ $page->name }}</a></h4>
+                        <h4><a href="{{ route('page', ['cat' => $page->slug, 'subcat' => $page->slug]) }}">{{ $page->name }}</a></h4>
                     @endif
                 </div>
                 <ul class="entry-meta">

@@ -14,22 +14,16 @@ class CategorySeeder extends Seeder
     {
         // Create Categories
         DB::insert(
-            "INSERT INTO `categories` (`id`, `name`, `description`, `meta_description`, `meta_keyword`, `image`, `parent_id`, `lang_code`, `top`, `column`, `sort_order`, `status`, `slug`, `created_at`, `updated_at`)
+            "INSERT INTO `categories` (`id`, `name`, `description`, `meta_description`, `meta_keyword`, `image`, `parent_id`, `group`, `single_page`, `lang_code`, `top`, `column`, `sort_order`, `status`, `slug`, `created_at`, `updated_at`)
                     VALUES
-                        (1, 'Ručni paletni', '<p>test opis.</p>', 'test meta opis', 'test meta keys', 'images/categories/default.jpg', 0, 'hr', 1, 1, 0, 1, 'rucni-paletni', '2020-01-02 19:08:42', '2020-01-03 00:00:03'),
-                        (2, 'Električni niskopodizni (paletni)', 'Električni niskopodizni (paletni)', 'Električni niskopodizni (paletni) viličari', 'test meta keys', 'images/categories/default.jpg', 0, 'hr', 1, 1, 0, 1, 'elektricni-niskopodizni-paletni', '2020-01-02 19:08:42', '2020-01-03 00:00:09'),
-                        (3, 'Električni visokopodizni', 'Električni visokopodizni', 'Električni visokopodizni viličari', 'test meta keys', 'images/categories/default.jpg', 0, 'hr', 1, 1, 0, 1, 'elektricni-visokopodizni', '2020-01-02 19:08:42', '2020-01-03 00:00:18'),
-                        (4, 'Električni komisioni', 'Električni komisioni', 'Električni komisioni viličari', 'test meta keys', 'images/categories/default.jpg', 0, 'hr', 1, 1, 0, 1, 'elektricni-komisioni', '2020-01-02 19:08:42', '2020-01-03 00:00:24'),
-                        (5, 'Električni regalni', 'Električni regalni viličari', 'Električni regalni viličari', 'test meta keys', 'images/categories/default.jpg', 0, 'hr', 1, 1, 0, 1, 'elektricni-regalni', '2020-01-02 19:08:42', '2020-01-03 00:00:30'),
-                        (6, 'Električni visokoregalni', 'Električni visokoregalni', 'Električni visokoregalni viličari', 'test meta keys', 'images/categories/default.jpg', 0, 'hr', 1, 1, 0, 1, 'elektricni-visokoregalni', '2020-01-02 19:08:42', '2020-01-03 00:00:36'),
-                        (7, 'Električni čeoni', 'Električni visokoregalni', 'Električni čeoni viličari', 'test meta keys', 'images/categories/default.jpg', 0, 'hr', 1, 1, 0, 1, 'elektricni-ceoni', '2020-01-02 19:08:42', '2020-01-03 00:00:42'),
-                        (8, 'Plinski i Diesel čeoni', 'Plinski i Diesel čeoni viličari', 'Plinski i Diesel čeoni viličari', 'test meta keys', 'images/categories/default.jpg', 0, 'hr', 1, 1, 0, 1, 'elektricni-ceoni', '2020-01-02 19:08:42', '2020-01-03 00:00:48'),
-                        (9, 'Vučna vozila', 'Vučna vozila', 'Vučna vozila', 'test meta keys', 'images/categories/default.jpg', 0, 'hr', 1, 1, 0, 1, 'elektricni-ceoni', '2020-01-02 19:08:42', '2020-01-03 00:00:53');"
+                        (1, 'O nama', '<p>O nama opis.</p>', 'O nama meta opis', 'O nama, meta, keys', 'images/categories/default.jpg', 0, 'NAVBAR', 1, 'hr', 1, 1, 1, 1, 'o-nama', '2020-01-02 19:08:42', '2020-01-03 00:00:03'),
+                        (2, 'Novosti', '<p>Novosti opis.</p>', 'Novosti meta opis', 'Novosti, meta, keys', 'images/categories/default.jpg', 0, 'NAVBAR', 0, 'hr', 1, 1, 2, 1, 'novosti', '2020-01-02 19:08:42', '2020-01-03 00:00:03'),
+                        (3, 'Kontakt', '<p>Kontakt opis</p>', 'Kontakt meta opis', 'Kontakt, meta, keys', 'images/categories/default.jpg', 0, 'NAVBAR', 1, 'hr', 1, 1, 3, 1, 'kontakt', '2020-01-02 19:08:42', '2020-01-03 00:00:09');"
         );
     
     
         // Create SubCategories
-        DB::insert(
+        /*DB::insert(
             "INSERT INTO `categories` (`id`, `name`, `description`, `meta_description`, `meta_keyword`, `image`, `parent_id`, `lang_code`, `top`, `column`, `sort_order`, `status`, `slug`, `created_at`, `updated_at`)
                     VALUES
                         (10, 'Toyota Lifter L', 'Toyota Lifter L', 'Toyota Lifter L', 'Toyota Lifter L', 'images/categories/default.jpg', 1, 'hr', 0, 1, 0, 1, 'rucni-paletni', '2020-01-02 19:08:42', '2020-01-03 00:00:03'),
@@ -65,6 +59,6 @@ class CategorySeeder extends Seeder
                         (40, 'BT Movit S', 'BT Movit S', 'BT Movit S', 'BT Movit S', 'images/categories/default.jpg', 9, 'hr', 0, 1, 0, 1, 'elektricni-ceoni', '2020-01-02 19:08:42', '2020-01-03 00:00:53'),
                         (41, 'Toyota Tracto S', 'Toyota Tracto S', 'Toyota Tracto S', 'Toyota Tracto S', 'images/categories/default.jpg', 9, 'hr', 0, 1, 0, 1, 'elektricni-ceoni', '2020-01-02 19:08:42', '2020-01-03 00:00:53'),
                         (42, 'Toyota Tracto R', 'Toyota Tracto R', 'Toyota Tracto R', 'Toyota Tracto R', 'images/categories/default.jpg', 9, 'hr', 0, 1, 0, 1, 'elektricni-ceoni', '2020-01-02 19:08:42', '2020-01-03 00:00:53');"
-        );
+        );*/
     }
 }

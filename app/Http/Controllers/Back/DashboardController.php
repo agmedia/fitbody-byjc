@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Back;
 
-
 use App\Events\MessageSent;
 use App\Http\Controllers\Controller;
 use App\Imports\ProjectImport;
@@ -27,8 +26,8 @@ class DashboardController extends Controller
         //Bouncer::assign('admin')->to(auth()->user());
         $dash = new Dashboard();
 
-        $stats = $dash->stats();
-        $news = $dash->news(10);
+        $stats  = $dash->stats();
+        $news   = $dash->news(config('settings.category.news'));
         $clicks = $dash->mostClicks();
 
         return view('back.dashboard', compact('stats', 'news', 'clicks'));
@@ -63,6 +62,7 @@ class DashboardController extends Controller
     {
         return redirect()->back()->with(['success' => 'Testirano i drugi put!!! :)']);
     }
+
 
     /**
      * Show the form for creating a new resource.

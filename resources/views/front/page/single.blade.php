@@ -41,7 +41,7 @@
         <div class="content-wrap nobottompadding">
             <div class="container clearfix">
                 <div class="row clearfix">
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <div class="entry-title">
                             <h2>{{ $page->name }}</h2>
                         </div>
@@ -70,7 +70,7 @@
 
                             <div class="clear"></div>
 
-                            @if ($page->slug == 'kontakt')
+                            @if ($page->slug == 'kontakt' || $cat->slug == 'kontakt')
                                 @include('front.page.partials.contact-form')
 
                                 <div class="clear"></div>
@@ -98,11 +98,6 @@
                             @include('front.page.partials.share')
 
                         </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                        @include('front.page.partials.services')
-                        @include('front.page.partials.latest')
                     </div>
                 </div>
             </div>

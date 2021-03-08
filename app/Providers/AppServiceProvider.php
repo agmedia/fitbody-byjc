@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\AppInfo;
 use App\Models\Back\Custom\Project;
 use App\Models\Front\Category\Category;
 use App\Models\Front\Page;
@@ -37,56 +38,33 @@ class AppServiceProvider extends ServiceProvider
         //
         // Kategorije
         $categories = Cache::rememberForever('cats', function () {
-            return (new CategoryMenu())->menu()['list']['navbar'];
+            //dd((new CategoryMenu())->menu());
+            return (new CategoryMenu())->menu()['list']['NAVBAR'];
         });
         View::share('categories', $categories);
         //
         //
-        //
-        $info_menu = Cache::rememberForever('i_menu', function () {
-            return Page::news(Category::find(13))->published()->latest()->get();
-        });
-        View::share('info_menu', $info_menu);
-        //
-        //
-        //
-        $mrav_menu = Cache::rememberForever('m_menu', function () {
-            return Page::news(Category::find(18))->published()->latest()->get();
-        });
-        View::share('mrav_menu', $mrav_menu);
-        //
-        //
         // Zadnje novosti
         $latest = Cache::rememberForever('latest', function () {
-            return Page::news(Category::find(10))->published()->latest()->limit(5)->get();
+            //dd(Page::news(Category::find(config('settings.category.news')))->published()->latest()->limit(5)->get());
+            return Page::news(Category::find(config('settings.category.news')))->published()->latest()->limit(5)->get();
         });
         View::share('latest', $latest);
         //
         //
-        //
-        $services = Page::news(Category::find(11))->published()->inRandomOrder()->limit(3)->get();
-        View::share('services', $services);
-        //
-        //
-        //
-        $products_data = Cache::rememberForever('products_data', function () {
-            $list = Project::all();
-            return [
-                'count' => $list->count(),
-                'amount' => $list->sum('amount')
-            ];
+        // App SETTINGS
+        $appinfo = Cache::rememberForever('app_info', function () {
+            return AppInfo::get();
         });
-        View::share('products_data', $products_data);
+        View::share('appinfo', $appinfo);
         //
         //
-        // App Settings - Admin
-        /*view()->composer('*', function($view)
+        // USER SETTINGS
+        view()->composer('*', function($view)
         {
             if (Auth::check()) {
-                $view->with('settings', Cache::rememberForever('app_set', function () {
-                    return Profile::settings(Auth::user()->id);
-                }));
+                $view->with('settings', Profile::settings(Auth::user()->id));
             }
-        });*/
+        });
     }
 }

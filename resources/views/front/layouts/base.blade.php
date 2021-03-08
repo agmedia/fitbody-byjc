@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Document Title -->
-    <title>Razvojna agencija MRAV</title>
-    <meta name="description" content="Djelovanje i aktivnosti Razvojne agencije MRAV d.o.o. usmjerene su na postizanje održivog povećanja životnog standarda i lokalnog razvoja Moslavačke regije i šire." />
+    <title>{{ $appinfo->long_name }}</title>
+    <meta name="description" content="{{ $appinfo->long_name }}" />
 
     <!-- Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700&display=swap&subset=latin-ext" rel="stylesheet">
@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="stretched sticky-responsive-menu side-panel-left no-transition"{{-- data-loader="2" data-animation-in="fadeIn" data-speed-in="1800" data-animation-out="fadeOut" data-speed-out="900"--}}>
+<body class="stretched sticky-responsive-menu side-panel-left no-transition "{{-- data-loader="2" data-animation-in="fadeIn" data-speed-in="1800" data-animation-out="fadeOut" data-speed-out="900"--}}>
 <div class="body-overlay"></div>
 @include('front.layouts.partials.sidenav')
 
@@ -51,12 +51,8 @@
 
 <!-- External JavaScripts -->
 <script src="{{ asset('front/js/base.js') }}"></script>
-{{--<script src="{{ asset('front/js/jquery.js') }}"></script>
-<script src="{{ asset('front/js/plugins.js') }}"></script>
-<script src="{{ asset('front/js/functions.js') }}"></script>--}}
 @stack('js')
 <script src="{{ asset('front/js/jquery.ihavecookies.js') }}"></script>
-{{--<script src="{{ asset('front/js/cookies.js') }}"></script>--}}
 <script type="text/javascript">
     $(document).ready(function() {
         $('body').ihavecookies({

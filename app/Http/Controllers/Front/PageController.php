@@ -27,9 +27,13 @@ class PageController extends Controller
             if ($cat->single_page) {
                 $page = Page::published()->article($cat)->first();
 
-                if ($page) {
-                    return view('front.page.single', compact('cat', 'page'));
+                if ( ! $page) {
+                    abort(401);
                 }
+
+                $page->setDescription();
+
+                return view('front.page.single', compact('cat', 'page'));
             }
 
             $pages = Page::published()->news($cat)->latest()->paginate(config('settings.pagination.items'));
@@ -43,6 +47,7 @@ class PageController extends Controller
         // Ako je subcategory i page.
         if ($subcat && $page) {
             $subcat = $subcategory;
+            $page->setDescription();
 
             return view('front.page.single', compact('cat', 'subcat', 'page'));
         }
@@ -54,9 +59,13 @@ class PageController extends Controller
             if ( ! $subcategory) {
                 $page = Page::where('slug', $subcat)->first();
 
-                if ($page) {
-                    return view('front.page.single', compact('cat', 'page'));
+                if ( ! $page) {
+                    abort(401);
                 }
+
+                $page->setDescription();
+
+                return view('front.page.single', compact('cat', 'page'));
             }
 
             // Ako je subcategory kategorija
@@ -64,9 +73,13 @@ class PageController extends Controller
             if ($subcat->single_page) {
                 $page = Page::published()->article($subcat)->first();
 
-                if ($page) {
-                    return view('front.page.single', compact('cat', 'page'));
+                if ( ! $page) {
+                    abort(401);
                 }
+
+                $page->setDescription();
+
+                return view('front.page.single', compact('cat', 'page'));
             }
 
             $pages = Page::published()->news($subcat)->latest()->paginate(config('settings.pagination.items'));

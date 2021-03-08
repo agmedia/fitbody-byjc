@@ -26,6 +26,7 @@ class CreatePagesTable extends Migration
             $table->string('group')->nullable();
             $table->integer('viewed')->unsigned()->default(0);
             $table->timestamp('publish_date')->nullable();
+            $table->string('lang')->default('hr');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

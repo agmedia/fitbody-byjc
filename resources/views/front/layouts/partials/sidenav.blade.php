@@ -30,6 +30,7 @@
             <nav class="nav-tree nobottommargin">
                 <ul>
                     <li><a href="#">Korisne informacije</a>
+                        @if(isset($info_menu))
                         <ul>
                             @foreach ($info_menu as $page)
                                 @if (isset($page->subcat->parent))
@@ -39,8 +40,10 @@
                                 @endif
                             @endforeach
                         </ul>
+                        @endif
                     </li>
                     <li><a href="#">RA Mrav Agencija</a>
+                        @if(isset($mrav_menu))
                         <ul>
                             @foreach ($mrav_menu as $page)
                                 @if (isset($page->subcat->parent))
@@ -50,6 +53,7 @@
                                 @endif
                             @endforeach
                         </ul>
+                        @endif
                     </li>
                 </ul>
             </nav>

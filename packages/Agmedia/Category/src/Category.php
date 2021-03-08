@@ -66,7 +66,7 @@ class Category
             $menu[] = [
                 'id' => $sub->id,
                 'name' => $sub->name,
-                'slug' => 'toyota-vilicari/' . $sub->slug,
+                'slug' => /*'toyota-vilicari/' . */$sub->slug,
                 'parent_id' => $sub->parent_id
             ];
             
@@ -75,7 +75,7 @@ class Category
                     $menu[] = [
                         'id' => $value->id,
                         'name' => $sub->name . ' > ' . $value->name,
-                        'slug' => 'toyota-vilicari/' . $sub->slug . '/' . $value->slug,
+                        'slug' => /*'toyota-vilicari/' . */$sub->slug . '/' . $value->slug,
                         'parent_id' => $value->parent_id
                     ];
                 }

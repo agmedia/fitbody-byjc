@@ -55,6 +55,14 @@ Route::middleware('auth', 'noCustomers')->group(function () {
                     Route::patch('individual/{sid}', 'Back\Marketing\SliderIndividualController@update')->name('slider.individual.update');
                 });
             });
+            // CUSTOM - PRICES
+            Route::get('prices', 'Back\Custom\PricesController@index')->name('prices');
+            Route::middleware('strike.editor')->group(function () {
+                Route::get('price/create', 'Back\Custom\PricesController@create')->name('price.create');
+                Route::post('price', 'Back\Custom\PricesController@store')->name('price.store');
+                Route::get('price/{price}/edit', 'Back\Custom\PricesController@edit')->name('price.edit');
+                Route::patch('price/{price}', 'Back\Custom\PricesController@update')->name('price.update');
+            });
 
             Route::get('slider/{id}/edit/sliders', 'Back\Marketing\SliderController@editSliders')->name('slider.edit.sliders');
             // Blogs
@@ -81,6 +89,27 @@ Route::middleware('auth', 'noCustomers')->group(function () {
             Route::get('message/{message}/edit', 'Back\Users\MessageController@edit')->name('message.edit');
         });
         //
+        // APP SETTINGS
+        // DESIGN GROUP
+        Route::prefix('design')->group(function () {
+            //
+            // WIDGETS
+            Route::prefix('widgets')->group(function () {
+                Route::get('/', 'Back\Design\WidgetController@index')->name('widgets');
+                Route::get('create', 'Back\Design\WidgetController@create')->name('widget.create');
+                Route::post('/', 'Back\Design\WidgetController@store')->name('widget.store');
+                Route::get('{widget}/edit', 'Back\Design\WidgetController@edit')->name('widget.edit');
+                Route::patch('{widget}', 'Back\Design\WidgetController@update')->name('widget.update');
+                // GROUP
+                Route::prefix('groups')->group(function () {
+                    Route::get('create', 'Back\Design\WidgetGroupController@create')->name('widget.group.create');
+                    Route::post('/', 'Back\Design\WidgetGroupController@store')->name('widget.group.store');
+                    Route::get('{widget}/edit', 'Back\Design\WidgetGroupController@edit')->name('widget.group.edit');
+                    Route::patch('{widget}', 'Back\Design\WidgetGroupController@update')->name('widget.group.update');
+                });
+            });
+        });
+        //
         // SETTINGS Group
         Route::prefix('settings')->group(function () {
             // Profile
@@ -92,6 +121,14 @@ Route::middleware('auth', 'noCustomers')->group(function () {
             Route::post('page', 'Back\Settings\PageController@store')->name('page.store');
             Route::get('page/{id}/edit', 'Back\Settings\PageController@edit')->name('page.edit');
             Route::patch('page/{page}', 'Back\Settings\PageController@update')->name('page.update');
+            // APPLICATION
+            Route::prefix('application')->group(function () {
+                // THEME
+                Route::get('theme', 'Back\Settings\ThemeController@index')->name('theme');
+                // INFO DATA
+                Route::get('info', 'Back\Settings\InfoController@index')->name('info');
+                Route::post('info', 'Back\Settings\InfoController@update')->name('info.update');
+            });
         });
         //
         // Back API routes.
@@ -107,6 +144,12 @@ Route::middleware('auth', 'noCustomers')->group(function () {
             Route::post('slider/destroy', 'Back\Marketing\SliderController@destroy')->name('slider.destroy');
             Route::post('user/destroy', 'Back\Users\UserController@destroy')->name('user.destroy');
             Route::post('page/destroy', 'Back\Settings\PageController@destroy')->name('page.destroy');
+            Route::post('price/destroy', 'Back\Custom\PricesController@destroy')->name('price.destroy');
+            // WIDGET
+            Route::prefix('widget')->group(function () {
+                Route::post('destroy', 'Back\Design\WidgetController@destroy')->name('widget.destroy');
+                Route::get('get-links', 'Back\Design\WidgetController@getLinks')->name('widget.api.get-links');
+            });
             // Autocomplete and Autosuggestion routes
             Route::get('/users/autocomplete', 'Back\Api1\UserController@autocomplete')->name('users.autocomplete');
             // Sliders

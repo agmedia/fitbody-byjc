@@ -19,7 +19,7 @@
             <div class="content-header-section sidebar-mini-visible-b">
                 <!-- Logo -->
                 <span class="content-header-item font-w700 font-size-xl float-left animated fadeIn">
-                    <span class="text-dual-primary-dark">A</span><span class="text-primary">C</span>
+                    <span class="text-dual-primary-dark">F</span><span class="text-primary">B</span>
                 </span>
                 <!-- END Logo -->
             </div>
@@ -38,7 +38,7 @@
                 <div class="content-header-item">
                     <a class="link-effect font-w700" href="{{ route('dashboard') }}">
                         <i class="si si-pointer text-dual-primary-dark"></i>
-                        <span class="font-size-xl text-primary">Ra</span><span class="font-size-xl text-dual-primary-dark">Mrav</span>
+                        <span class="font-size-xl text-primary">{{ substr($appinfo->admin_name, 0, strpos($appinfo->admin_name, ' ')) }}</span><span class="font-size-xl text-dual-primary-dark">{{ substr($appinfo->admin_name, strpos($appinfo->admin_name, ' ') + 1) }}</span>
                     </a>
                 </div>
                 <!-- END Logo -->
@@ -107,15 +107,12 @@
                         <li>
                             <a class="{{ (request()->is('admin/marketing/sliders') or request()->is('admin/marketing/slider/*')) ? ' active' : '' }}" href="{{ route('sliders') }}">Slideri</a>
                         </li>
-                        {{--<li>
-                            <a class="{{ (request()->is('admin/marketing/blogs') or request()->is('admin/marketing/blog/*')) ? ' active' : '' }}" href="{{ route('blogs') }}">Blog</a>
-                        </li>--}}
+                        <li>
+                            <a class="{{ (request()->is('admin/marketing/prices') or request()->is('admin/marketing/price/*')) ? ' active' : '' }}" href="{{ route('prices') }}">Cjenik</a>
+                        </li>
                     </ul>
                 </li>
 
-                <li class="nav-main-heading">
-                    <span class="sidebar-mini-visible">AS</span><span class="sidebar-mini-hidden">Postavke Aplikacije</span>
-                </li>
                 <li class="{{ (request()->is('admin/users') or request()->is('admin/users/*')) ? 'open' : '' }}">
                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-users"></i><span class="sidebar-mini-hide">Korisnici</span></a>
                     <ul>
@@ -127,14 +124,39 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="nav-main-heading">
+                    <span class="sidebar-mini-visible">AS</span><span class="sidebar-mini-hidden">Postavke Aplikacije</span>
+                </li>
+
+                <li class="{{ (request()->is('admin/design') or request()->is('admin/design/*')) ? 'open' : '' }}">
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-settings"></i><span class="sidebar-mini-hide">Dizajn</span></a>
+                    <ul>
+                        <li>
+                            <a class="{{ (request()->is('admin/design/theme') or request()->is('admin/design/theme/*')) ? ' active' : '' }}" href="{{ route('theme') }}">Tema</a>
+                        </li>
+                        <li>
+                            <a class="{{ (request()->is('admin/design/widgets') or request()->is('admin/design/widgets/*')) ? ' active' : '' }}" href="{{ route('widgets') }}">Widgets</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="{{ (request()->is('admin/settings') or request()->is('admin/settings/*')) ? 'open' : '' }}">
                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-settings"></i><span class="sidebar-mini-hide">Postavke</span></a>
                     <ul>
                         <li>
                             <a class="{{ (request()->is('admin/settings/profile') or request()->is('admin/settings/profile/*')) ? ' active' : '' }}" href="{{ route('profile') }}">Moj Profil</a>
                         </li>
-                        <li>
-                            <a class="{{ (request()->is('admin/settings/pages') or request()->is('admin/settings/page/*')) ? ' active' : '' }}" href="{{ route('pages') }}">Info Stranice</a>
+                        <li class="{{ request()->is('admin/settings/application/*') ? 'open' : '' }}">
+                            <a class="nav-submenu" data-toggle="nav-submenu" href="#"><span class="sidebar-mini-hide">Aplikacija</span></a>
+                            <ul>
+                                <li class="{{ request()->is('admin/settings/application/theme') ? 'open' : '' }}">
+                                    <a class="{{ request()->is('admin/settings/application/theme') ? ' active' : '' }}" href="{{ route('theme') }}"><span class="sidebar-mini-hide">Tema</span></a>
+                                </li>
+                                <li class="{{ request()->is('admin/settings/application/info') ? 'open' : '' }}">
+                                    <a class="{{ request()->is('admin/settings/application/info') ? ' active' : '' }}" href="{{ route('info') }}"><span class="sidebar-mini-hide">Info Podaci</span></a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>

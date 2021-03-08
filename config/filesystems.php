@@ -73,6 +73,12 @@ return [
             'url' => 'media/pdf/'
         ],
         //
+        'section' => [
+            'driver' => 'local',
+            'root' => public_path('media/images/sections/'),
+            'url' => 'media/images/sections/'
+        ],
+        //
         'category' => [
             'driver' => 'local',
             'root' => public_path('media/images/gallery/category/'),

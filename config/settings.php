@@ -32,7 +32,12 @@ return [
     ],
     //
     'pagination' => [
+        'admin' => 20,
         'items' => 12
+    ],
+    //
+    'category' => [
+        'news' => 2
     ]
 
 ];

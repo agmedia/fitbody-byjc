@@ -11,17 +11,17 @@
                         <div class="col-md-4 bottommargin-sm widget_links">
                             <h4 style="margin-bottom: 10px;">Sjedište</h4>
                             <address>
-                                Razvojna agencija MRAV d.o.o.<br>
-                                Hrvatskih branitelja 2<br>
-                                44320 Kutina, Hrvatska<br>
+                                {{ $appinfo->long_name }}<br>
+                                {{ $appinfo->address }}<br>
+                                {{ $appinfo->zip }} {{ $appinfo->city }}<br>
                             </address>
                             <div class="row time-table">
                                 <h5 class="col-md-3" style="margin-bottom: 0;"><abbr title="Phone Number">Tel:</abbr></h5>
-                                <span class="col-md-9">+385 44 659 078</span>
+                                <span class="col-md-9">{{ $appinfo->phone }}</span>
                             </div>
                             <div class="row time-table">
-                                <h5 class="col-md-3" style="margin-bottom: 0;"><abbr title="Fax">Fax:</abbr></h5>
-                                <span class="col-md-9">+385 44 659 078</span>
+                                <h5 class="col-md-3" style="margin-bottom: 0;"><abbr title="Fax">Mob:</abbr></h5>
+                                <span class="col-md-9">{{ $appinfo->mobile }}</span>
                             </div>
                             <div class="row time-table">
                                 <h5 class="col-md-3" style="margin-bottom: 0;"><abbr title="Email Address">Email:</abbr></h5>
@@ -31,28 +31,32 @@
 
                         <div class="col-md-4 bottommargin-sm widget_links">
                             <h4 style="margin-bottom: 10px;">Informacije</h4>
-                            <ul>
-                                @foreach ($info_menu as $page)
-                                    @if (isset($page->subcat->parent))
-                                        <li style="padding-left: 0;"><a href="{{ route('page', ['cat' => $page->subcat->parent->slug, 'subcat' => $page->subcat->slug, 'page' => $page->slug]) }}">{{ $page->name }}</a></li>
-                                    @else
-                                        <li style="padding-left: 0;"><a href="{{ route('page', ['cat' => $page->cat->slug, 'subcat' => $page->slug]) }}">{{ $page->name }}</a></li>
-                                    @endif
-                                @endforeach
-                            </ul>
+                            @if(isset($info_menu))
+                                <ul>
+                                    @foreach ($info_menu as $page)
+                                        @if (isset($page->subcat->parent))
+                                            <li style="padding-left: 0;"><a href="{{ route('page', ['cat' => $page->subcat->parent->slug, 'subcat' => $page->subcat->slug, 'page' => $page->slug]) }}">{{ $page->name }}</a></li>
+                                        @else
+                                            <li style="padding-left: 0;"><a href="{{ route('page', ['cat' => $page->cat->slug, 'subcat' => $page->slug]) }}">{{ $page->name }}</a></li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            @endif
                         </div>
 
                         <div class="col-md-4 bottommargin-sm widget_links">
                             <h4 style="margin-bottom: 10px;">RA Mrav</h4>
-                            <ul>
-                                @foreach ($mrav_menu as $page)
-                                    @if (isset($page->subcat->parent))
-                                        <li style="padding-left: 0;"><a href="{{ route('page', ['cat' => $page->subcat->parent->slug, 'subcat' => $page->subcat->slug, 'page' => $page->slug]) }}">{{ $page->name }}</a></li>
-                                    @else
-                                        <li style="padding-left: 0;"><a href="{{ route('page', ['cat' => $page->cat->slug, 'subcat' => $page->slug]) }}">{{ $page->name }}</a></li>
-                                    @endif
-                                @endforeach
-                            </ul>
+                            @if(isset($mrav_menu))
+                                <ul>
+                                    @foreach ($mrav_menu as $page)
+                                        @if (isset($page->subcat->parent))
+                                            <li style="padding-left: 0;"><a href="{{ route('page', ['cat' => $page->subcat->parent->slug, 'subcat' => $page->subcat->slug, 'page' => $page->slug]) }}">{{ $page->name }}</a></li>
+                                        @else
+                                            <li style="padding-left: 0;"><a href="{{ route('page', ['cat' => $page->cat->slug, 'subcat' => $page->slug]) }}">{{ $page->name }}</a></li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -61,11 +65,11 @@
                 <div class="widget clearfix" style="margin-bottom: -20px;">
                     <div class="row">
                         <div class="col-lg-7 bottommargin-sm">
-                            <div class="counter counter-small" style="color: #bbbbbb;"><span data-from="100" data-to="{{ number_format($products_data['amount'], 0, '', '') }}" data-refresh-interval="90" data-speed="2500" data-comma="true"></span></div>
+                            <div class="counter counter-small" style="color: #bbbbbb;"><span data-from="100" data-to="{{ isset($products_data) ? number_format($products_data['amount'], 0, '', '') : 0 }}" data-refresh-interval="90" data-speed="2500" data-comma="true"></span></div>
                             <h5 class="nobottommargin">Kuna odobreno</h5>
                         </div>
                         <div class="col-lg-5 bottommargin-sm">
-                            <div class="counter counter-small" style="color: #bbbbbb;"><span data-from="0" data-to="{{ $products_data['count'] }}" data-refresh-interval="3" data-speed="2000" data-comma="true"></span></div>
+                            <div class="counter counter-small" style="color: #bbbbbb;"><span data-from="0" data-to="{{ isset($products_data) ? $products_data['count'] : 0 }}" data-refresh-interval="3" data-speed="2000" data-comma="true"></span></div>
                             <h5 class="nobottommargin">Projekata</h5>
                         </div>
                     </div>
@@ -105,7 +109,7 @@
                         @endif
                     @endforeach
                 </div>
-                Copyrights <span style="color: #c23138;">&copy;</span> RA Mrav {{ date('Y') }} Sva prava pridržana.
+                Copyrights <span style="color: #c23138;">&copy;</span> {{ $appinfo->name }} {{ date('Y') }} Sva prava pridržana.
             </div>
             <div class="col_one_fourth col_last tright nobottommargin">
                 <div class="fright clearfix">
@@ -129,7 +133,7 @@
     <div id="copyrights" class="d-block d-sm-none" style="padding: 10px 0 20px 0; color: grey">
         <div class="container clearfix">
             <div class="col_full nobottommargin" style="margin-bottom: 0px !important;">
-                Copyrights <span style="color: #c23138;">&copy;</span> RA Mrav {{ date('Y') }}
+                Copyrights <span style="color: #c23138;">&copy;</span> {{ $appinfo->name }} {{ date('Y') }}
                 <div id="side-panel-trigger" class="side-panel-trigger hidden-xs-down" style="right: 5px; margin: 0;"><i class="icon-info"></i></div>
             </div>
         </div>

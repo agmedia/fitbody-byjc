@@ -63,7 +63,7 @@
                             <td class="text-center text-uppercase font-size-xs">{{ strtoupper($category->group) }}</td>
                             <td class="text-center">{{ $category->sort_order }}</td>
                             <td class="d-none d-sm-table-cell text-right">
-                                @if ( ! in_array($category->id, [1, 10, 11, 12, 13, 18]))
+                                @if ( ! in_array($category->id, [1, 2, 3]))
                                     <button type="button" class="btn btn-sm btn-circle btn-alt-danger" data-toggle="tooltip" data-placement="left" title="Obriši {{ $category->name }}"
                                             onclick="event.preventDefault(); shouldDeleteCategory({{ json_encode($category) }});">
                                         <i class="fa fa-times"></i>

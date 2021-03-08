@@ -3,9 +3,11 @@
 namespace App\Models\Front;
 
 
+use App\Models\Back\Design\WidgetGroup;
 use App\Models\Back\Settings\PageBlock;
 use App\Models\Front\Category\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Page extends Model
 {
@@ -124,6 +126,35 @@ class Page extends Model
         $term = addslashes($term);
 
         return $query->where('name', 'LIKE', "%{$term}%")->orWhere('meta_keywords', 'LIKE', "%{$term}%");
+    }
+
+
+    /**
+     *
+     */
+    public function setDescription()
+    {
+        $iterator = substr_count($this->description, '++');
+        $offset = 0;
+        $ids = [];
+
+        for ($i = 0; $i < $iterator / 2; $i++) {
+            $from = strpos($this->description, '++', $offset) + 2;
+            $to = strpos($this->description, '++', $from + 2);
+            $ids[] = substr($this->description, $from, $to - $from);
+
+            $offset = $to + 2;
+        }
+
+        foreach ($ids as $id) {
+            $wg = WidgetGroup::where('id', $id)->orWhere('slug', $id)->where('status', 1)->with('widgets')->first();
+
+            $this->description = str_replace(
+                '++' . $id . '++',
+                view('front.layouts.widgets.widget_' . $wg->section_id, ['data' => $wg->widgets]),
+                $this->description
+            );
+        }
     }
 
 }

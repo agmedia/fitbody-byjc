@@ -19,12 +19,21 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info('Refreshing database...');
         $this->command->comment('Refreshed!');
-
+    
         $this->call(UsersSeeder::class);
-        $this->command->line('Users created!');
+        $this->command->comment('Users created!');
+
+        $this->call(CategorySeeder::class);
+        $this->command->comment('Categories created!');
+
+        $this->call(PageSeeder::class);
+        $this->command->comment('Pages created!');
+
+        $this->call(WidgetSeeder::class);
+        $this->command->comment('Widgets created!');
 
         $this->command->comment('Enjoy your app!');
-        $this->command->comment('...');
+        $this->command->line('...');
 
         // ReGuard model
         Model::reguard();
